@@ -5,6 +5,7 @@
     "build": "slidev build",
     "dev": "slidev --port 6889",
     "export": "slidev export",
+    "export-dark": "slidev export --dark",
     "export-notes": "slidev export-notes"
   },
   "devDependencies": {

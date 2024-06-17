@@ -5,12 +5,9 @@ theme: seriph
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: https://cover.sli.dev
 # some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: 前端监控演讲
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  ## 前端监控演讲
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/custom/highlighters.html
@@ -24,24 +21,17 @@ transition: slide-left
 mdc: true
 ---
 
-# Welcome to Slidev
+# 前端稳定性监控
 
-Presentation slides for developers
+演讲者：周传森
 
-<div class="pt-12">
+<div class="abs-br m-6 flex items-center gap-2">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
+     <carbon:arrow-right class="inline"/>
   </span>
-</div>
-
-<div class="abs-br m-6 flex gap-2">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub" title="Open in GitHub"
-    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
 </div>
 
 <!--
@@ -49,24 +39,17 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-transition: fade-out
----
 
-# What is Slidev?
+# 为什么需要前端监控
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+前端监控主要用于跟踪和理解用户在使用应用时的体验和问题
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+- 📝 **提升用户体验** - 可通过监控用户交互、页面渲染时间、页面加载速度等，来发现和优化瓶颈，进一步提升用户体验。
+- 🛠 **故障排查** - 前端监控可以帮助我们实时收集和上报网页错误、性能问题等，当问题发生时可以尽快发现和定位问题，降低故障恢复时间。
+- 🧑‍💻 **用户行为分析** - 通过前端监控，我们可以收集用户的行为数据，如点击事件、页面停留时间、路径分析等，帮助我们更好地理解用户使用习惯，优化产品设计。
+- 🤹 **业务数据监控** - 可以监控关键业务数据的变化，例如购物车转化率、注册量等，及时发现潜在问题。
+  <br>
+  <br>
 
 <!--
 You can have `style` tag in markdown to override the style for the current page.
@@ -90,555 +73,532 @@ Here is another comment.
 -->
 
 ---
-transition: slide-up
-level: 2
----
 
-# Navigation
+# 为什么不用第三方监控
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-## Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+- 方便团队做自定义的UV用户识别，比如通过登录账号ID或者通过设备信息；甚至从设备信息转入登录态后的继承
+- 方便接入自己团队的各种告警业务等
+- 方便做各维度数据的联合分析，比如发生错误可以联动查询用户行为追溯数据等
+- 方便做业务需求上的拓展，比如自定义埋点、特殊的数据分析维度
+- 方便前后端全链路的一个API请求链路分析；
+- 私有化部署需要付费且价格不低，不易定制化。
+  <br>
+  <br>
 
 ---
-layout: two-cols
-layoutClass: gap-16
+
+# 前端监控做了那些
+
+前端搭建监控体系，可以概括为为了做两件事：
+
+- 如何及时发现问题
+- 如何快速定位问题
+  <br>
+  <br>
+
+### 可以拆分为：
+
+- **页面的性能情况** - 包括各阶段加载耗时，一些关键性的用户体验指标等
+- **用户的行为情况** - 包括PV、UV、访问来路，路由跳转等
+- **接口的调用情况** - 通过http访问的外部接口的成功率、耗时情况等
+- **页面的稳定情况** - 各种前端异常等
+- **数据上报及优化** - 如何将监控捕获到的数据优雅的上报
+
 ---
 
-# Table of contents
+# 前端监控系统目录
 
-You can use the `Toc` component to generate a table of contents for your slides:
+<Toc  minDepth="1" maxDepth="2"></Toc>
 
-```html
-<Toc minDepth="1" maxDepth="1"></Toc>
+---
+
+# 错误监控
+
+<div
+  v-motion
+  :initial="{ x: -80, opacity: 0}"
+  :enter="{ x: 10, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
+>
+
+- JS运行异常
+- 静态资源加载异常
+- Promise异常
+- HTTP请求异常
+- 跨域脚本错误
+- Vue2、Vue3 错误捕获
+
+</div>
+
+<br>
+
+<Error></Error>
+
+<v-click >
+
+<div class="bg-white absolute top-105px right-200px w-120  p-5px">
+
+```ts
+const handler = (event: ErrorEvent) => {
+  // 阻止向上抛出控制台报错
+  event.preventDefault();
+  // 处理错误
+  console.log(event);
+  // HandleEvents.handleError(event);
+};
+
+window.addEventListener('error', (event) => handler(event), true);
+
+function throwError() {
+  setTimeout(() => {
+    throw new Error('error');
+  }, 1000);
+}
+
+throwError();
 ```
 
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+</div>
 
-::right::
+</v-click>
 
-<Toc v-click minDepth="1" maxDepth="2"></Toc>
+<v-click >
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
----
-layout: image-right
-image: https://cover.sli.dev
----
+### 以及最后sourceMap上传到私服的过程
 
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover![^1]
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
+</v-click>
 
 ---
-level: 2
----
 
-# Shiki Magic Move
+## 整体错误上报流程
 
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
+<v-drag pos="608,90,365,324" class="w-100 bg-white p-5px">
+  <img
+    class="w-full"
+    src="/public/all-input.png"
+    alt=""
+  />
+</v-drag>
 
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
+以Js运行异常为例，整体上报流程如下：
+
+<v-click>
 
 ````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
+```ts {*|5}
+// setupReplace 中添加 addReplaceHandler
+// 替代处理的回调函数和类型
+addReplaceHandler({
+  callback: (error) => {
+    HandleEvents.handleError(error);
+  },
+  type: EventTypes.ERROR,
+});
 ```
 
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
+```ts {*|1,3}
+// addReplaceHandler 添加订阅和函数替代
+export function addReplaceHandler(handler: ReplaceHandler) {
+  if (!subscribeEvent(handler)) return; // 添加订阅
+  replace(handler.type as EventTypes); // 替换函数
+}
+```
+
+```ts {1,5-7}
+// subscribeEvent 添加订阅，存在handlers订阅中心
+export function subscribeEvent(handler: ReplaceHandler): boolean {
+  if (!handler || getFlag(handler.type)) return false;
+  setFlag(handler.type, true);
+  handlers[handler.type] = handlers[handler.type] || [];
+  handlers[handler.type].push(handler.callback);
+  return true;
+}
+```
+
+```ts {1,4}
+// addReplaceHandler 添加订阅和函数替代
+export function addReplaceHandler(handler: ReplaceHandler) {
+  if (!subscribeEvent(handler)) return; // 添加订阅
+  replace(handler.type as EventTypes); // 替换函数
+}
+```
+
+```ts {1,7}
+// replace 使用策略模式 匹配 EventTypes.ERROR 并使用 listenError 函数
+function listenError(): void {
+  on(
+    _global,
+    'error',
+    function (e: ErrorEvent) {
+      triggerHandlers(EventTypes.ERROR, e);
+    },
+    true
+  );
+}
+```
+
+```ts {1,4-13|7}
+// replace 使用策略模式 匹配 EventTypes.ERROR 并使用 listenError 函数
+export function triggerHandlers(type: EventTypes | WxEvents, data: any): void {
+  if (!type || !handlers[type]) return;
+  handlers[type].forEach((callback) => {
+    nativeTryCatch(
+      () => {
+        callback(data);
+      },
+      (e: Error) => {
+        console.error(`重写事件triggerHandlers的回调函数发生错误：${e}`);
       }
-    }
+    );
+  });
+}
+```
+
+```ts {5}
+// setupReplace 中添加 addReplaceHandler
+// 替代处理的回调函数和类型
+addReplaceHandler({
+  callback: (error) => {
+    HandleEvents.handleError(error);
+  },
+  type: EventTypes.ERROR,
+});
+```
+
+```ts {1,5|9|11-16|17}
+// HandleEvents 是个map对象，这里就对应handleError函数
+  handleError(errorEvent: ErrorEvent) {
+    const target = errorEvent.target as ResourceErrorTarget;
+    // code error
+    const { message, filename, lineno, colno, error } = errorEvent;
+    let result: ReportDataType;
+
+    // 处理SyntaxError，stack没有lineno、colno
+    result || (result = transformData(message, filename, lineno, colno));
+    result.type = ErrorTypes.JAVASCRIPT_ERROR;
+    breadcrumb.push({
+      type: BreadCrumbTypes.CODE_ERROR,
+      category: breadcrumb.getCategory(BreadCrumbTypes.CODE_ERROR),
+      data: { ...result },
+      level: Severity.Error,
+    });
+    transportData.send(result);
+  },
+```
+````
+
+</v-click>
+
+<v-click>
+
+后面就是生成 <span v-mark.red="15"><code>errorId</code> </span> 和 <span v-mark.circle.orange="16">上报方式</span> 的流程
+
+</v-click>
+
+---
+
+## TransportData上报流程
+
+<v-drag pos="608,90,365,324" class="w-100 bg-white p-5px">
+  <img
+    class="w-full"
+    src="/public/all-input.png"
+    alt=""
+  />
+</v-drag>
+
+<v-click>
+
+````md magic-move {lines: true}
+```ts {1,10|11|3-9|16|17-18}
+// TransportData 类
+export class TransportData {
+  async beforePost(data: FinalReportType) {
+    // 生成errorId
+    const errorId = createErrorId(data, this.apikey);
+    if (!errorId) return false;
+    data.errorId = errorId;
+    return data;
   }
+
+  async send(data: FinalReportType) {
+    const result = await this.beforePost(data);
+    if (!result) return;
+
+    return typeof navigator.sendBeacon === 'function'
+      ? this.beaconTransport(result, dsn)
+      : this.xhrPost(result, dsn);
+  }
+}
+```
+
+```ts {1,4|5,6|9,10}
+// beacon 形式上报
+beaconTransport = (data: any, url: string): Function => {
+  const requestFun = () => {
+    const status = window.navigator.sendBeacon(url, JSON.stringify(data));
+    // 如果数据量过大，则本次大数据量用 XMLHttpRequest 上报
+    if (!status) this.xhrPost().apply(this, data, url);
+  };
+  // this.queue.addFn(requestFun);
+  requestFun;
+};
+```
+
+```ts {1,4-8}
+// XMLHttpRequest 形式上报
+async xhrPost(data: any, url: string) {
+  const requestFun = (): void => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(EMethods.Post, url);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.withCredentials = true;
+    xhr.send(JSON.stringify(data));
+  };
+  // this.queue.addFn(requestFun);
+  requestFun;
+}
+```
+````
+
+</v-click>
+
+<v-click>
+
+这就是使用 <span v-mark.red="10"><code>addEventListener('error')</code> </span> 进行监听的全部流程
+
+</v-click>
+
+---
+
+## sourceMap上传流程
+
+自定义vite-plugin-sourcemap-xk插件，将sourceMap上传到私服
+
+<v-click>
+
+````md magic-move {lines: true}
+```ts {*|10-12|13-15}
+import path from 'path';
+import fs from 'fs';
+import request from 'request';
+
+const TAG = '[vite-plugin-sourcemap-xk]: ';
+
+export default function vitePluginSourcemapXk(pluginOptions) {
+  return {
+    name: 'sourcemap-xk',
+    writeBundle(options: any, bundle: any) {
+      // ...获取sourcemap文件
+    },
+    async closeBundle() {
+      // ...上传sourcemap
+    },
+  };
 }
 ```
 
 ```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
+writeBundle(options: any, bundle: any) {
+  const { dir } = options;
+  outDir = dir;
+  const fileNames = Object.keys(bundle);
+  sourcemapFiles = fileNames.filter((fileName) =>
+    fileName.endsWith('.js.map')
+  );
+  return;
+},
+```
+
+```ts {*|2-11|4}
+async closeBundle() {
+  for (const file of sourcemapFiles) {
+    try {
+      const { code, msg } = await upload(`${outDir}/${file}`);
+      if (code !== 0) {
+        console.error(TAG, msg);
+      }
+    } catch (error) {
+      console.error(TAG, error);
     }
-  })
+  }
+  console.log(TAG, 'upload finished');
+  return;
+},
+```
+
+```ts
+function upload(filePath: string): Promise<ResponseType> {
+  return new Promise((resolve, rejected) => {
+    const fileStream = fs.createReadStream(filePath);
+    const filename = path.basename(filePath);
+    const config = {
+      method: 'POST',
+      url,
+      formData: {
+        file: {
+          value: fileStream,
+          options: {
+            filename: filePath,
+            contentType: null,
+          },
+        },
+        dirname: appname,
+        filename,
+      },
+    };
+
+    request(config, function (err, res) {});
+  });
 }
 ```
 
-Non-code blocks are ignored.
+```ts
+import path from 'path';
+import fs from 'fs';
+import request from 'request';
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
+const TAG = '[vite-plugin-sourcemap-xk]: ';
+
+export default function vitePluginSourcemapXk(pluginOptions) {
+  return {
+    name: 'sourcemap-xk',
+    writeBundle(options: any, bundle: any) {
+      // ...获取sourcemap文件
+    },
+    async closeBundle() {
+      // ...上传sourcemap
+    },
+  };
 }
-</script>
 ```
 ````
 
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
+</v-click>
 
 <v-click>
 
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
+这就是使用 <span v-mark.red="10"><code>sourceMap</code> </span> 上传流程
 
 </v-click>
 
-<div mt-20 v-click>
+---
 
-[Learn More](https://sli.dev/guide/animations#click-animations)
+# 性能监控
 
-</div>
+- BBC页⾯加载时长每增加1秒，⽤户流失10%
+- Pinterest减少页⾯加载时长40%, 提⾼了搜索和注册数15%
+- DoubleClick发现如果移动⽹站加载时长超过3秒，53%的⽤户会放弃
+  <br>
+  <br>
+
+### 网页性能指标及影响因素
+
+1. performance.timing
+2. performance.getEntries()
+3. PerformanceObserver
+
+```ts {2|4-6} twoslash
+//直接往 PerformanceObserver() 入参匿名回调函数，成功 new 了一个 PerformanceObserver 类的，名为 observer 的对象
+var observer = new PerformanceObserver(function (list, obj) {
+  var entries = list.getEntries();
+  for (var i = 0; i < entries.length; i++) {
+    //处理“navigation”和“resource”事件
+  }
+});
+//调用 observer 对象的 observe() 方法
+observer.observe({ entryTypes: ['navigation', 'resource'] });
+```
+
+<img
+  v-click
+  class="absolute bottom-205px right-200px w-100"
+  src="/public/timing.png"
+  alt=""
+/>
 
 ---
 
-# Motions
+## Core Web Vitals（核心网页指标）
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
+[Core Web Vitals](https://web.dev/articles/vitals?hl=zh-cn/)
 
-```html
+<img
+  v-click
+  class="absolute bottom-205px right-100px w-100"
+  src="/public/web-core-user.png"
+  alt=""
+/>
+
+<!--   v-drag="'square'" -->
+
+<img
+  v-click
+  class="absolute bottom-255px left-50px w-80"
+  src="/public/web-core.png"
+  alt=""
+/>
+
+<div v-click class="mt-200px">
+
+## 性能监控工具
+
+- [Lighthouse](https://developers.google.com/web/tools/lighthouse)
+- [WebPageTest](https://www.webpagetest.org/)
+- [GTmetrix](https://gtmetrix.com/)
+- [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)
+- [Calibre](https://calibreapp.com/)
+
+ </div>
+
+---
+
+# 行为监控
+
 <div
   v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
+  :initial="{ x: -80, opacity: 0}"
+  :enter="{ x: 10, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
 >
-  Slidev
-</div>
-```
 
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
+- PV、UV
+- 路由跳转
+  - <span v-mark.red="1"><code>Hash 路由</code> </span>
+  - <span v-mark.red="1"><code>History 路由</code> </span>
+- 用户点击事件
+- 用户自定义埋点
+- HTTP 请求捕获
+- 页面停留时间
+- 访客来路
+- User Agent 解析
 
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+  <br>
+
+<div class="bg-white absolute top-105px right-200px w-100 p-5px">
+  <img
+    class="w-full"
+    src="/public/behavior.png"
+    alt=""
+  />
+
+</div>
+
+---
 
 <div
+  class="flex items-center h-full"
   v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
+  :initial="{ x: -80, opacity: 0}"
+  :enter="{ x: 300, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
+>
+  <div class="text-3xl">Thanks for Listening!</div>
 </div>
-
----
-
-# LaTeX
-
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
-
-<br>
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{array}{c}
-
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
 ```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <carbon:arrow-up />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/multiple-entries.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
-
----
-layout: center
-class: text-center
----
-
-# Learn More
-
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+`````
