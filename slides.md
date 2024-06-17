@@ -43,11 +43,27 @@ The last comment block of each slide will be treated as slide notes. It will be 
 # 为什么需要前端监控
 
 前端监控主要用于跟踪和理解用户在使用应用时的体验和问题
+<v-click>
 
 - 📝 **提升用户体验** - 可通过监控用户交互、页面渲染时间、页面加载速度等，来发现和优化瓶颈，进一步提升用户体验。
+
+</v-click>
+<v-click>
+
 - 🛠 **故障排查** - 前端监控可以帮助我们实时收集和上报网页错误、性能问题等，当问题发生时可以尽快发现和定位问题，降低故障恢复时间。
+
+</v-click>
+<v-click>
+
 - 🧑‍💻 **用户行为分析** - 通过前端监控，我们可以收集用户的行为数据，如点击事件、页面停留时间、路径分析等，帮助我们更好地理解用户使用习惯，优化产品设计。
+
+</v-click>
+<v-click>
+
 - 🤹 **业务数据监控** - 可以监控关键业务数据的变化，例如购物车转化率、注册量等，及时发现潜在问题。
+
+</v-click>
+
   <br>
   <br>
 
@@ -76,12 +92,21 @@ Here is another comment.
 
 # 为什么不用第三方监控
 
+<div
+  v-motion
+  :initial="{ x: -80, opacity: 0}"
+  :enter="{ x: 10, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
+>
+
 - 方便团队做自定义的UV用户识别，比如通过登录账号ID或者通过设备信息；甚至从设备信息转入登录态后的继承
 - 方便接入自己团队的各种告警业务等
 - 方便做各维度数据的联合分析，比如发生错误可以联动查询用户行为追溯数据等
 - 方便做业务需求上的拓展，比如自定义埋点、特殊的数据分析维度
 - 方便前后端全链路的一个API请求链路分析；
 - 私有化部署需要付费且价格不低，不易定制化。
+
+</div>
+
   <br>
   <br>
 
@@ -91,18 +116,31 @@ Here is another comment.
 
 前端搭建监控体系，可以概括为为了做两件事：
 
+<div
+  v-motion
+  :initial="{ x: -80, opacity: 0}"
+  :enter="{ x: 10, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
+>
+
 - 如何及时发现问题
 - 如何快速定位问题
+
+</div>
+
   <br>
   <br>
 
-### 可以拆分为：
+<v-click>
 
-- **页面的性能情况** - 包括各阶段加载耗时，一些关键性的用户体验指标等
-- **用户的行为情况** - 包括PV、UV、访问来路，路由跳转等
-- **接口的调用情况** - 通过http访问的外部接口的成功率、耗时情况等
-- **页面的稳定情况** - 各种前端异常等
-- **数据上报及优化** - 如何将监控捕获到的数据优雅的上报
+### 可以拆分为
+
+- **页面的性能情况** - <span v-mark.red="2"><code>如何监控页面的性能情况</code> </span>
+- **用户的行为情况** - <span v-mark.red="3"><code>包括PV、UV、访问来路，路由跳转等</code> </span>
+- **接口的调用情况** - <span v-mark.red="4"><code>通过http访问的外部接口的成功率、耗时情况等 </code> </span>
+- **页面的稳定情况** - <span v-mark.red="5"><code>各种前端异常等</code> </span>
+- **数据上报及优化** - <span v-mark.red="6"><code>如何将监控捕获到的数据优雅的上报</code> </span>
+
+</v-click>
 
 ---
 
@@ -120,7 +158,7 @@ Here is another comment.
   :enter="{ x: 10, opacity: 1, scale: 1, transition: { delay: 100, duration: 1300 } }"
 >
 
-- JS运行异常
+- <span v-mark.circle.orange="1"> JS运行异常 </span>
 - 静态资源加载异常
 - Promise异常
 - HTTP请求异常
@@ -169,7 +207,7 @@ throwError();
   <br>
   <br>
 
-### 以及最后sourceMap上传到私服的过程
+### <span v-mark.red="2">以及最后sourceMap上传到私服的过程</span>
 
 </v-click>
 
