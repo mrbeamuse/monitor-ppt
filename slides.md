@@ -175,7 +175,7 @@ Here is another comment.
 
 <div class="bg-white absolute top-105px right-200px w-120  p-5px">
 
-```ts
+```ts twoslash
 const handler = (event: ErrorEvent) => {
   // 阻止向上抛出控制台报错
   event.preventDefault();
@@ -215,7 +215,7 @@ throwError();
 
 ## 整体错误上报流程
 
-<v-drag pos="608,90,365,324" class="w-100 bg-white p-5px">
+<v-drag pos="666,90,307,324" class="w-100 bg-white p-5px">
   <img
     class="w-full"
     src="/public/all-input.png"
@@ -638,5 +638,3 @@ observer.observe({ entryTypes: ['navigation', 'resource'] });
 >
   <div class="text-3xl">Thanks for Listening!</div>
 </div>
-```
-`````
